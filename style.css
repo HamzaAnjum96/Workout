@@ -1,0 +1,349 @@
+/* ================================
+   General Body Styling
+   ================================ */
+body {
+    background-color: #1c1e2a;
+    color: #f0f4f8;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    margin: 0;
+    padding-top: 70px; /* Prevents content from being hidden under the fixed task bar */
+}
+
+/* ================================
+   Task Bar Styling
+   ================================ */
+.task-bar {
+    background-color: #1f2230;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: #f0f4f8;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Progress Bar as Bottom Border of Task Bar */
+#progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: #00babc; /* PureGym teal */
+    width: 0%;
+    transition: width 0.3s ease;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.task-center {
+    display: flex;
+    gap: 10px;
+}
+
+.task-right {
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .task-right {
+        display: none; /* Hide date on smaller screens */
+    }
+}
+
+/* ================================
+   Button Styling
+   ================================ */
+.task-button {
+    background-color: #1f2230;
+    color: #f0f4f8;
+    border: 2px solid #00babc;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.task-button:hover {
+    background-color: #00babc;
+    color: #ffffff;
+}
+
+.task-button.selected {
+    background-color: #ffb500; /* PureGym yellow/orange */
+    color: #ffffff;
+    border-color: #ffb500;
+}
+
+/* ================================
+   Card Stack Styling
+   ================================ */
+.card-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* ================================
+   Exercise Card Styling
+   ================================ */
+.card {
+    background: linear-gradient(145deg, #1f2230, #2a2d3d);
+    border: 3px solid #00babc; /* PureGym teal */
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(255, 255, 255, 0.1);
+    width: 320px; /* Slightly increased from 300px to accommodate content */
+    height: 450px;
+    position: relative;
+    color: #e1e6eb;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distributes top and bottom sections */
+    overflow: hidden;
+    flex: 1 1 320px; /* Updated to match new width */
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.card.completed {
+    border-color: #ffb500; /* PureGym yellow/orange */
+}
+
+/* ================================
+   Card Top Section
+   ================================ */
+.card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between elements */
+}
+
+.card-header {
+    font-size: 1.8em;
+    color: #00babc; /* PureGym teal */
+    font-weight: 700;
+    text-align: center;
+    min-height: 60px; /* Reserve space for up to 3 lines of title */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Removed the ::after pseudo-element to eliminate the unwanted divider to the right of the title */
+/*
+.card-header::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: #374b63;
+    margin: 8px auto 0;
+}
+*/
+
+.card.completed .card-header {
+    color: #ffb500; /* PureGym yellow/orange */
+    text-decoration: line-through;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #374b63;
+    width: 100%;
+}
+
+.card-body {
+    font-size: 0.9em;
+    color: #b2becd;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+/* ================================
+   Tag Styling
+   ================================ */
+.main-tag, .group-tag, .day-tag, .equipment-tag {
+    background-color: #00babc; /* PureGym teal */
+    color: #ffffff;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.secondary-tag, .category-tag, .movement-tag, .plane-tag, .joints-tag, .difficulty-tag {
+    background-color: #333;
+    color: #f0f4f8;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.card.completed .main-tag,
+.card.completed .group-tag,
+.card.completed .day-tag,
+.card.completed .equipment-tag {
+    background-color: #ffb500; /* PureGym yellow/orange */
+}
+
+/* ================================
+   Card Bottom Section
+   ================================ */
+.card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Reduced space between elements */
+}
+
+.divider-bottom {
+    border: none;
+    border-top: 1px solid #374b63;
+    width: 100%;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 5px; /* Reduced spacing below social icons */
+}
+
+.social-icons a {
+    color: #f0f4f8;
+    font-size: 1.8em;
+    transition: color 0.3s;
+}
+
+.social-icons .youtube-icon:hover {
+    color: #FF0000;
+}
+
+.social-icons .tiktok-icon:hover {
+    color: #69C9D0;
+}
+
+.social-icons .instagram-icon:hover {
+    color: #E1306C;
+}
+
+/* ================================
+   Sets and Reps Container
+   ================================ */
+.sets-reps-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 5px 0; /* Reduced padding */
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+.sets-reps-item {
+    text-align: center;
+    flex: 1 1 120px; /* Allow items to shrink and grow as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Removed min-width to allow more flexibility */
+}
+
+.big-text {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #00babc; /* PureGym teal */
+    margin-bottom: 5px;
+}
+
+.card.completed .big-text {
+    color: #ffb500; /* PureGym yellow/orange */
+    text-decoration: line-through;
+}
+
+.small-text {
+    font-size: 0.85em;
+    color: #b2becd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ================================
+   Help Icon Styling
+   ================================ */
+.help-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.help-icon.fa-circle {
+    color: #00babc; /* PureGym teal */
+}
+
+.card.completed .help-icon {
+    color: #ffb500; /* PureGym yellow/orange */
+}
+
+.card.completed .help-icon.fa-circle {
+    display: none;
+}
+
+.card.completed .help-icon.fa-circle-check {
+    display: inline;
+}
+
+/* ================================
+   Responsive Adjustments
+   ================================ */
+@media (max-width: 600px) {
+    .social-icons {
+        gap: 10px;
+    }
+
+    /* Removed flex-direction: column for .sets-reps-container at 600px */
+    /* Instead, allow wrapping based on content */
+
+    .card {
+        width: 90%; /* Adjust card width on smaller screens */
+        height: auto; /* Allow height to adjust based on content */
+    }
+}
+
+@media (max-width: 500px) {
+    /* Introduce a new breakpoint for stacking sets and reps */
+    .sets-reps-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sets-reps-item {
+        flex: 1 1 100%; /* Make items take full width when stacked */
+    }
+}

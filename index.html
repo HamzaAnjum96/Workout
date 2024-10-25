@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Routine</title>
+  
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Task Bar at the top with date and workout buttons -->
+    <div class="task-bar">
+        <div class="task-center">
+            <button class="task-button" onclick="showDay('push')">Push</button>
+            <button class="task-button" onclick="showDay('pull')">Pull</button>
+            <button class="task-button" onclick="showDay('legs')">Legs</button>
+        </div>
+        <div class="task-right">
+            <span id="current-date"></span>
+        </div>
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Workout Container for displaying exercise cards -->
+    <div class="card-stack" id="workout-container"></div>
+
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/988e18ebdb.js" crossorigin="anonymous"></script>
+</body>
+</html>
