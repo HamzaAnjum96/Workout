@@ -1,11 +1,15 @@
+let cachedWorkoutData = null; // Cache to store the workout data
+
 // Fetch the workout data from data.json
 document.addEventListener('DOMContentLoaded', async () => {
-    const workoutData = await fetchWorkoutData();
-    if (workoutData) {
-        console.log('Workout data successfully loaded:', workoutData); // Log loaded data
+    if (!cachedWorkoutData) {
+        cachedWorkoutData = await fetchWorkoutData();
+    }
+    if (cachedWorkoutData) {
+        console.log('Workout data successfully loaded:', cachedWorkoutData); // Log loaded data
         updateDateCard();
         selectButton('push'); // Default selection on load
-        showDay('push', workoutData);
+        showDay('push');
     } else {
         console.error('Failed to load workout data');
     }
@@ -19,7 +23,11 @@ async function fetchWorkoutData() {
             throw new Error('Failed to load workout data');
         }
         console.log('Fetching workout data:', response); // Log response
-        return await response.json();
+        
+        const data = await response.json();
+        console.log('Parsed workout data:', data); // Log parsed data
+        
+        return data;
     } catch (error) {
         console.error('Error fetching workout data:', error);
         return null;
@@ -27,7 +35,12 @@ async function fetchWorkoutData() {
 }
 
 // Display exercises for the selected day and highlight the selected button
-function showDay(day, workoutData) {
+function showDay(day) {
+    if (!cachedWorkoutData) {
+        console.error('No cached workout data available to display');
+        return;
+    }
+
     console.log('Displaying exercises for:', day); // Log selected day
     const container = document.getElementById('workout-container');
     if (!container) {
@@ -36,8 +49,8 @@ function showDay(day, workoutData) {
     }
     container.innerHTML = ''; // Clear existing content
 
-    if (workoutData[day]) {
-        workoutData[day].forEach((exercise) => {
+    if (cachedWorkoutData[day]) {
+        cachedWorkoutData[day].forEach((exercise) => {
             console.log('Creating card for exercise:', exercise); // Log each exercise being processed
             const card = createExerciseCard(exercise);
             container.appendChild(card);
@@ -52,16 +65,7 @@ function showDay(day, workoutData) {
 }
 
 // Expose `showDay` globally for the HTML onclick to work
-window.showDay = (day) => {
-    console.log('Global showDay function called with:', day); // Log showDay invocation
-    fetchWorkoutData().then((workoutData) => {
-        if (workoutData) {
-            showDay(day, workoutData);
-        } else {
-            console.error('Failed to fetch workout data for showDay');
-        }
-    });
-};
+window.showDay = showDay;
 
 // Highlight the selected button and reset others
 function selectButton(day) {
