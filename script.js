@@ -23,10 +23,10 @@ async function fetchWorkoutData() {
             throw new Error('Failed to load workout data');
         }
         console.log('Fetching workout data:', response); // Log response
-        
+
         const data = await response.json();
         console.log('Parsed workout data:', data); // Log parsed data
-        
+
         return data;
     } catch (error) {
         console.error('Error fetching workout data:', error);
@@ -35,13 +35,13 @@ async function fetchWorkoutData() {
 }
 
 // Display exercises for the selected tag and highlight the selected button
-function showDay(tag) {
+function showDay(day) {
     if (!cachedWorkoutData) {
         console.error('No cached workout data available to display');
         return;
     }
 
-    console.log('Displaying exercises for tag:', tag); // Log selected tag
+    console.log('Displaying exercises for tag:', day); // Log selected tag
     const container = document.getElementById('workout-container');
     if (!container) {
         console.error('Workout container element not found');
@@ -50,7 +50,7 @@ function showDay(tag) {
     container.innerHTML = ''; // Clear existing content
 
     // Filter exercises based on the `group` tag
-    const filteredExercises = cachedWorkoutData.filter(exercise => exercise.group.toLowerCase() === tag.toLowerCase());
+    const filteredExercises = cachedWorkoutData.filter(exercise => exercise.group.toLowerCase() === day.toLowerCase());
     if (filteredExercises.length > 0) {
         filteredExercises.forEach((exercise) => {
             console.log('Creating card for exercise:', exercise); // Log each exercise being processed
@@ -58,7 +58,7 @@ function showDay(tag) {
             container.appendChild(card);
         });
     } else {
-        console.error('No workout data found for tag:', tag);
+        console.error('No workout data found for tag:', day);
         const noDataMessage = document.createElement('div');
         noDataMessage.classList.add('no-data-message');
         noDataMessage.textContent = 'No exercises found for this category.';
@@ -66,7 +66,7 @@ function showDay(tag) {
     }
 
     completedCount = 0; // Reset completed count for new selection
-    selectButton(tag); // Update selected button state
+    selectButton(day); // Update selected button state
     updateProgress();
 }
 
