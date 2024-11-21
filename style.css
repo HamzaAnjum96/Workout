@@ -2,8 +2,8 @@
    General Body Styling
    ================================ */
 body {
-    background-color: #1c1e2a;
-    color: #f0f4f8;
+    background-color: #141625;
+    color: #e1e6eb;
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
     margin: 0;
@@ -14,16 +14,16 @@ body {
    Task Bar Styling
    ================================ */
 .task-bar {
-    background-color: #1f2230;
+    background-color: #2b2e3b;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    color: #f0f4f8;
+    padding: 12px 24px;
+    color: #f9fbfd;
     font-size: 1em;
     font-weight: 500;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
+    border-radius: 10px;
     margin-bottom: 20px;
     position: fixed;
     top: 0;
@@ -32,22 +32,20 @@ body {
     z-index: 1000;
 }
 
-/* Progress Bar as Bottom Border of Task Bar */
 #progress-bar {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 4px;
-    background-color: #00babc; /* PureGym teal */
+    background-color: #00babc;
     width: 0%;
-    transition: width 0.3s ease;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    transition: width 0.4s ease;
+    border-radius: 0 0 10px 10px;
 }
 
 .task-center {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .task-right {
@@ -64,11 +62,11 @@ body {
    Button Styling
    ================================ */
 .task-button {
-    background-color: #1f2230;
-    color: #f0f4f8;
+    background-color: #2b2e3b;
+    color: #e1e6eb;
     border: 2px solid #00babc;
-    border-radius: 12px;
-    padding: 8px 16px;
+    border-radius: 10px;
+    padding: 8px 20px;
     font-size: 0.9em;
     cursor: pointer;
     font-weight: 500;
@@ -81,7 +79,7 @@ body {
 }
 
 .task-button.selected {
-    background-color: #ffb500; /* PureGym yellow/orange */
+    background-color: #ffb500;
     color: #ffffff;
     border-color: #ffb500;
 }
@@ -92,7 +90,7 @@ body {
 .card-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
     justify-content: center;
 }
 
@@ -100,107 +98,90 @@ body {
    Exercise Card Styling
    ================================ */
 .card {
-    background: linear-gradient(145deg, #1f2230, #2a2d3d);
-    border: 3px solid #00babc; /* PureGym teal */
-    border-radius: 20px;
+    background: linear-gradient(145deg, #202336, #2d314a);
+    border: 2px solid #00babc;
+    border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(255, 255, 255, 0.1);
-    width: 320px; /* Slightly increased from 300px to accommodate content */
+    width: 320px;
     height: 450px;
     position: relative;
     color: #e1e6eb;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distributes top and bottom sections */
+    justify-content: space-between;
     overflow: hidden;
-    flex: 1 1 320px; /* Updated to match new width */
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .card:hover {
-    transform: scale(1.02); /* Slight zoom effect on hover */
+    transform: scale(1.03);
 }
 
 .card.completed {
-    border-color: #ffb500; /* PureGym yellow/orange */
+    border-color: #ffb500;
 }
 
 /* ================================
-   Card Top Section
+   Card Header Styling
    ================================ */
-.card-top {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between elements */
-}
-
 .card-header {
     font-size: 1.8em;
-    color: #00babc; /* PureGym teal */
+    color: #00babc;
     font-weight: 700;
     text-align: center;
-    min-height: 60px; /* Reserve space for up to 3 lines of title */
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
-
-/* Removed the ::after pseudo-element to eliminate the unwanted divider to the right of the title */
-/*
-.card-header::after {
-    content: "";
-    display: block;
-    width: 80%;
-    height: 1px;
-    background-color: #374b63;
-    margin: 8px auto 0;
-}
-*/
 
 .card.completed .card-header {
-    color: #ffb500; /* PureGym yellow/orange */
+    color: #ffb500;
     text-decoration: line-through;
 }
 
 .divider {
     border: none;
-    border-top: 1px solid #374b63;
+    border-top: 1px solid #384867;
     width: 100%;
 }
 
 .card-body {
     font-size: 0.9em;
-    color: #b2becd;
+    color: #b3c2db;
     text-align: center;
-    padding: 0 10px;
+    padding: 0 12px;
 }
 
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    padding: 5px 0;
+    padding: 6px 0;
 }
 
 /* ================================
    Tag Styling
    ================================ */
 .main-tag, .group-tag, .day-tag, .equipment-tag {
-    background-color: #00babc; /* PureGym teal */
+    background-color: #00babc;
     color: #ffffff;
-    font-size: 0.8em;
-    padding: 5px 10px;
-    border-radius: 12px;
+    font-size: 0.85em;
+    padding: 6px 12px;
+    border-radius: 6px;
     font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
 .secondary-tag, .category-tag, .movement-tag, .plane-tag, .joints-tag, .difficulty-tag {
     background-color: #333;
-    color: #f0f4f8;
-    font-size: 0.8em;
-    padding: 5px 10px;
-    border-radius: 12px;
+    color: #f9fbfd;
+    font-size: 0.85em;
+    padding: 6px 12px;
+    border-radius: 6px;
     font-weight: 500;
 }
 
@@ -208,7 +189,7 @@ body {
 .card.completed .group-tag,
 .card.completed .day-tag,
 .card.completed .equipment-tag {
-    background-color: #ffb500; /* PureGym yellow/orange */
+    background-color: #ffb500;
 }
 
 /* ================================
@@ -217,26 +198,26 @@ body {
 .card-bottom {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Reduced space between elements */
+    gap: 5px;
 }
 
 .divider-bottom {
     border: none;
-    border-top: 1px solid #374b63;
+    border-top: 1px solid #384867;
     width: 100%;
 }
 
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 5px; /* Reduced spacing below social icons */
+    gap: 18px;
+    margin-bottom: 6px;
 }
 
 .social-icons a {
     color: #f0f4f8;
     font-size: 1.8em;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .social-icons .youtube-icon:hover {
@@ -258,28 +239,28 @@ body {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    padding: 5px 0; /* Reduced padding */
-    flex-wrap: wrap; /* Allow wrapping */
+    padding: 5px 0;
+    flex-wrap: wrap;
 }
 
 .sets-reps-item {
     text-align: center;
-    flex: 1 1 120px; /* Allow items to shrink and grow as needed */
+    flex: 1 1 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Removed min-width to allow more flexibility */
 }
 
 .big-text {
     font-size: 1.8em;
     font-weight: bold;
-    color: #00babc; /* PureGym teal */
+    color: #00babc;
     margin-bottom: 5px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .card.completed .big-text {
-    color: #ffb500; /* PureGym yellow/orange */
+    color: #ffb500;
     text-decoration: line-through;
 }
 
@@ -300,50 +281,24 @@ body {
     color: rgba(255, 255, 255, 0.5);
     font-size: 1.5em;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .help-icon.fa-circle {
-    color: #00babc; /* PureGym teal */
+    color: #00babc;
 }
 
 .card.completed .help-icon {
-    color: #ffb500; /* PureGym yellow/orange */
-}
-
-.card.completed .help-icon.fa-circle {
-    display: none;
-}
-
-.card.completed .help-icon.fa-circle-check {
-    display: inline;
+    color: #ffb500;
 }
 
 /* ================================
    Responsive Adjustments
    ================================ */
 @media (max-width: 600px) {
-    .social-icons {
-        gap: 10px;
-    }
-
-    /* Removed flex-direction: column for .sets-reps-container at 600px */
-    /* Instead, allow wrapping based on content */
-
     .card {
-        width: 90%; /* Adjust card width on smaller screens */
-        height: auto; /* Allow height to adjust based on content */
-    }
-}
-
-@media (max-width: 500px) {
-    /* Introduce a new breakpoint for stacking sets and reps */
-    .sets-reps-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .sets-reps-item {
-        flex: 1 1 100%; /* Make items take full width when stacked */
+        width: 320px;
+        min-width: 320px;
+        max-width: 320px;
     }
 }
