@@ -2,9 +2,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const workoutData = await fetchWorkoutData();
     if (workoutData) {
+        console.log('Workout data successfully loaded:', workoutData); // Log loaded data
         updateDateCard();
         selectButton('push'); // Default selection on load
         showDay('push', workoutData);
+    } else {
+        console.error('Failed to load workout data');
     }
 });
 
@@ -15,6 +18,7 @@ async function fetchWorkoutData() {
         if (!response.ok) {
             throw new Error('Failed to load workout data');
         }
+        console.log('Fetching workout data:', response); // Log response
         return await response.json();
     } catch (error) {
         console.error('Error fetching workout data:', error);
@@ -24,13 +28,23 @@ async function fetchWorkoutData() {
 
 // Display exercises for the selected day and highlight the selected button
 function showDay(day, workoutData) {
+    console.log('Displaying exercises for:', day); // Log selected day
     const container = document.getElementById('workout-container');
+    if (!container) {
+        console.error('Workout container element not found');
+        return;
+    }
     container.innerHTML = ''; // Clear existing content
 
-    workoutData[day].forEach((exercise) => {
-        const card = createExerciseCard(exercise);
-        container.appendChild(card);
-    });
+    if (workoutData[day]) {
+        workoutData[day].forEach((exercise) => {
+            console.log('Creating card for exercise:', exercise); // Log each exercise being processed
+            const card = createExerciseCard(exercise);
+            container.appendChild(card);
+        });
+    } else {
+        console.error('No workout data found for day:', day);
+    }
 
     completedCount = 0; // Reset completed count for new day selection
     selectButton(day); // Update selected button state
@@ -39,15 +53,19 @@ function showDay(day, workoutData) {
 
 // Expose `showDay` globally for the HTML onclick to work
 window.showDay = (day) => {
+    console.log('Global showDay function called with:', day); // Log showDay invocation
     fetchWorkoutData().then((workoutData) => {
         if (workoutData) {
             showDay(day, workoutData);
+        } else {
+            console.error('Failed to fetch workout data for showDay');
         }
     });
 };
 
 // Highlight the selected button and reset others
 function selectButton(day) {
+    console.log('Selecting button for:', day); // Log button selection
     document.querySelectorAll('.task-button').forEach(button => {
         button.classList.toggle('selected', button.textContent.toLowerCase() === day);
     });
@@ -55,6 +73,7 @@ function selectButton(day) {
 
 // Create and return an exercise card element
 function createExerciseCard(exercise) {
+    console.log('Creating exercise card for:', exercise.exercise); // Log card creation
     const card = document.createElement('div');
     card.classList.add('card');
 
@@ -195,6 +214,7 @@ function createExerciseCard(exercise) {
 
 // Generate tags HTML for an exercise
 function createTags(exercise) {
+    console.log('Generating tags for:', exercise.exercise); // Log tag creation
     const tags = [
         `<span class="main-tag">${exercise.muscleGroup}</span>`,
         ...exercise.secondaryMuscles.map(muscle => `<span class="secondary-tag">${muscle}</span>`),
@@ -211,6 +231,7 @@ function createTags(exercise) {
 
 // Toggle completion status for an exercise card via `help-icon`
 function toggleCompletion(card, helpIcon) {
+    console.log('Toggling completion status for card:', card); // Log completion toggle
     const isCompleted = card.classList.toggle('completed');
     helpIcon.classList.toggle('fa-circle', !isCompleted);
     helpIcon.classList.toggle('fa-circle-check', isCompleted);
@@ -221,6 +242,7 @@ function toggleCompletion(card, helpIcon) {
 
 // Update the progress bar based on completed exercises
 function updateProgress() {
+    console.log('Updating progress bar'); // Log progress update
     const totalCards = document.querySelectorAll('.card').length;
     const progressPercentage = totalCards ? (completedCount / totalCards) * 100 : 0;
 
@@ -231,6 +253,7 @@ function updateProgress() {
 
 // Update the date and dynamically adjust format based on screen size
 function updateDateCard() {
+    console.log('Updating date card'); // Log date card update
     const today = new Date();
     const longFormat = { year: 'numeric', month: 'long', day: 'numeric' };
     const shortFormat = { month: 'short', day: 'numeric' };
