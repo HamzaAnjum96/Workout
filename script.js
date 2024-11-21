@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Workout data successfully loaded:', cachedWorkoutData); // Log loaded data
         updateDateCard();
         selectButton('push'); // Default selection on load
-        showDay('push');
+        showDay('push'); // Pass the group tag
     } else {
         console.error('Failed to load workout data');
     }
@@ -34,14 +34,14 @@ async function fetchWorkoutData() {
     }
 }
 
-// Display exercises for the selected day and highlight the selected button
-function showDay(day) {
+// Display exercises for the selected tag and highlight the selected button
+function showDay(tag) {
     if (!cachedWorkoutData) {
         console.error('No cached workout data available to display');
         return;
     }
 
-    console.log('Displaying exercises for:', day); // Log selected day
+    console.log('Displaying exercises for tag:', tag); // Log selected tag
     const container = document.getElementById('workout-container');
     if (!container) {
         console.error('Workout container element not found');
@@ -49,18 +49,24 @@ function showDay(day) {
     }
     container.innerHTML = ''; // Clear existing content
 
-    if (cachedWorkoutData[day]) {
-        cachedWorkoutData[day].forEach((exercise) => {
+    // Filter exercises based on the `group` tag
+    const filteredExercises = cachedWorkoutData.filter(exercise => exercise.group.toLowerCase() === tag.toLowerCase());
+    if (filteredExercises.length > 0) {
+        filteredExercises.forEach((exercise) => {
             console.log('Creating card for exercise:', exercise); // Log each exercise being processed
             const card = createExerciseCard(exercise);
             container.appendChild(card);
         });
     } else {
-        console.error('No workout data found for day:', day);
+        console.error('No workout data found for tag:', tag);
+        const noDataMessage = document.createElement('div');
+        noDataMessage.classList.add('no-data-message');
+        noDataMessage.textContent = 'No exercises found for this category.';
+        container.appendChild(noDataMessage);
     }
 
-    completedCount = 0; // Reset completed count for new day selection
-    selectButton(day); // Update selected button state
+    completedCount = 0; // Reset completed count for new selection
+    selectButton(tag); // Update selected button state
     updateProgress();
 }
 
@@ -68,10 +74,10 @@ function showDay(day) {
 window.showDay = showDay;
 
 // Highlight the selected button and reset others
-function selectButton(day) {
-    console.log('Selecting button for:', day); // Log button selection
+function selectButton(tag) {
+    console.log('Selecting button for:', tag); // Log button selection
     document.querySelectorAll('.task-button').forEach(button => {
-        button.classList.toggle('selected', button.textContent.toLowerCase() === day);
+        button.classList.toggle('selected', button.textContent.toLowerCase() === tag.toLowerCase());
     });
 }
 
